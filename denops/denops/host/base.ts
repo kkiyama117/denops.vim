@@ -1,34 +1,10 @@
 import { Service } from "../service.ts";
+import { denops } from "../deps.ts";
 
 /**
  * A Host (Vim/Neovim) interface.
  */
-export interface Host {
-  /**
-   * Execute a command (expr) on the host.
-   */
-  command(expr: string): Promise<void>;
-
-  /**
-   * Evaluate an expression (expr) on the host and return the result.
-   */
-  eval(expr: string): Promise<unknown>;
-
-  /**
-   * Call a function on the host and return the result.
-   */
-  call(fn: string, args: unknown[]): Promise<unknown>;
-
-  /**
-   * Echo text on the host.
-   */
-  echo(text: string): Promise<void>;
-
-  /**
-   * Echo text on the host.
-   */
-  echomsg(text: string): Promise<void>;
-
+export interface Host extends denops.HostService {
   /**
    * Register service which is visible from the host through RPC.
    */
@@ -53,5 +29,17 @@ export abstract class AbstractHost implements Host {
 
   async echomsg(text: string): Promise<void> {
     await this.call("denops#api#echomsg", [text]);
+  }
+
+  async getvar(group: denops.VariableGroup, prop: string): Promise<unknown> {
+    return await this.call("denops#api#getvar", [group, prop]);
+  }
+
+  async setvar(
+    group: denops.VariableGroup,
+    prop: string,
+    value: unknown
+  ): Promise<void> {
+    await this.call("denops#api#setvar", [group, prop, value]);
   }
 }
