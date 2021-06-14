@@ -30,12 +30,13 @@ function! s:checkDenoVersion() abort
     call health#report_warn('You should upgrade deno runtime since denops will use feature from `1.10.1`. See https://github.com/denoland/deno/pull/9323 for details.')
   elseif str2nr(deno_versions[1]) < 1 || str2nr(deno_versions[2] < 9)
     " TODO: Check minimum supported version of Deno.
+     let valid = 0
     call health#report_error('You need to upgrade ')
   else
     call health#report_ok('Deno version check: passed')
     call health#report_info('Deno version: ' . outputs[0])
   endif
-  return 0
+  return valid
 endfunction
 
 function! s:checkEnvironment() abort
@@ -63,7 +64,7 @@ function! s:checkDenops() abort
   " TODO: consider checking version of Denops.
   const denops_version = get(g:, 'denops#version', "0.0")
 
-  call health#report_info('Denops.vim ' . 'v' . denops_version . ' (' . mode . ')')
+  call health#report_info('Denops.vim ' . denops_version . ' (' . mode . ')')
 endfunction
 
 function! health#denops#check() abort
