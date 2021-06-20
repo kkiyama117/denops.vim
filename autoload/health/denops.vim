@@ -28,7 +28,7 @@ function! s:checkDenoVersion() abort
   elseif str2nr(deno_versions[1]) < 1 || str2nr(deno_versions[2] < 9)
     " TODO: Define minimum supported version of Deno.
      let valid = 0
-    call health#report_error('You need to upgrade ')
+    call health#report_error('You need to upgrade deno.')
   else
     call health#report_ok('Deno version check: passed')
     call health#report_info('Deno version: ' . outputs[0])
