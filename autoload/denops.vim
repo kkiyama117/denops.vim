@@ -15,7 +15,7 @@ endfunction
 " Configuration
 let g:denops#deno = get(g:, 'denops#deno', exepath('deno'))
 let g:denops#debug = get(g:, 'denops#debug', 0)
-" TODO: auto generation by git tags
+" TODO: generate automatically (by git tags).
 let g:denops#version = get(g:, 'denops#version', '0.16.0')
 
 
