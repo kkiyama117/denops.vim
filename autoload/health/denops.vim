@@ -4,7 +4,7 @@ function! s:checkDenoVersion() abort
   let deno = get(g:, 'denops#deno')
   if !executable(deno)
     let valid = 0
-    call health#report_error('Deno runtime is not installed. Please install deno and add to PATH')
+    call health#report_error('Deno runtime is not installed. Please install deno and add to `$PATH`.')
     let deno_original = exepath('deno')
     if !executable(deno_original)
       call health#report_error('Deno runtime is not recognized by denops-core. Please check deno exists at the PATH. If it does and you think it is bug, please report to denops team.')
