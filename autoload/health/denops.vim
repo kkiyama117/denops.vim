@@ -48,7 +48,7 @@ function! s:checkEnvironment() abort
     call health#report_ok('Vim version check: passed')
     return 0
   else
-    call health#report_error('You are using invalid editor. Please use supported version Vim or Neovim')
+    call health#report_error('You are using invalid editor. Please use supported version Vim or Neovim.')
     return 1
   endif
 endfunction
@@ -64,10 +64,13 @@ function! s:checkDenops() abort
 endfunction
 
 function! s:checkDenopsRunning() abort
-  if (denops#server#status() == 'running')
+  let server_status = denops#server#status()
+  if (server_status == 'running')
     call health#report_ok('Denops.vim is running')
+  elseif(server_status == 'stopped')
+    call health#report_error('Denops.vim is now stopped, please call `denops#server#start()` manually if needed for debugging.')
   else
-    call health#report_error('Denops.vim is not running now')
+    call health#report_error('Denops.vim may not exist or not loaded correctly.')
   endif
 endfunction
 
